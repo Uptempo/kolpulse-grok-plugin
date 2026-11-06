@@ -1,8 +1,10 @@
 # KOL Pulse Discovery plugin for Grok
 
-What did oncologists say about a clinical trial at a specific conference? This plugin connects Grok to
-[KOL Pulse](https://kolpulse.com) Discovery, which returns physicians' whole quotes with x.com source links, Open Payments
-context, and an explicit statement of coverage. Not medical advice.
+Follow practice-changing social media discussions and treatment controversies from recent oncology and hematology
+meetings (ESMO, WCLC, ASCO GU, EHA, IMS, and others). Name a clinical trial and a meeting, or start from a tumor type
+to pick one recent meeting. This plugin connects Grok to [KOL Pulse](https://kolpulse.com) so you can see what verified
+global KOLs posted — verbatim quotes, inline tweet links, Open Payments context, and links to KOL Pulse trial pages.
+One conference at a time. Not medical advice.
 
 ## What's included
 
@@ -10,12 +12,14 @@ context, and an explicit statement of coverage. Not medical advice.
 | --- | --- |
 | `suggest_conferences` | Lists conference corpus tags, optionally for a disease (lung, myeloma, GU…). |
 | `set_corpus` | Validates one conference tag. Stores nothing between calls. |
-| `oe_check` | For one trial at one conference: whole physician quotes with source links, Open Payments states, and coverage. |
-| `digest_delta` | **Temporarily unavailable.** Returns `status: "unavailable"` and reads nothing. Use `oe_check` instead. |
+| Named-trial lookup | For one named trial at one meeting: verbatim quotes, inline tweet links, Open Payments states, and coverage. |
+| `digest_delta` | **Temporarily unavailable.** Returns `status: "unavailable"` and reads nothing. Not a meeting-wide roundup. |
 
-The plugin also adds a skill, `kolpulse-discovery`, that tells Grok how to answer: one conference at a time, verbatim
-quotes with sources, Open Payments states shown as returned (a missing record is never "$0"), and coverage stated
-plainly.
+The plugin also adds a skill, `kolpulse-discovery`, that tells Grok how to answer. The skill treats practice-changing
+and treatment-controversy questions as first-class: it routes them, locks one meeting, and looks up only a named or
+user-picked trial. It hyperlinks each mentioned KOL post to its tool-returned x.com source, points readers to KOL Pulse
+trial pages, and never uses user-facing "OE" language. Answers stay one conference at a time, with verbatim quotes,
+Open Payments states shown as returned (a missing record is never "$0"), and coverage stated plainly.
 
 ## Requirements
 
@@ -68,8 +72,14 @@ plugin calls no other network endpoint and needs no other credential.
 
 ## Example prompts
 
-- "Which KOL Pulse conferences cover lung cancer?"
-- "What did oncologists say about OptiTROP-Lung06 at ESMO26? Include source links and Open Payments context."
+- "What did verified global KOLs post about OptiTROP-Lung06 at ESMO26? Include source links and Open Payments context."
+- "What were the practice-changing social media discussions from ESMO26?"
+- "What treatment controversies came out of WCLC26?"
+- "What recent meetings cover lung cancer?"
+
+The meeting-wide prompts (ESMO26 and WCLC26) and the tumor-type prompt (lung) currently route to suggesting or locking
+one meeting, then asking "Which named trial should I look up?" There is no meeting-wide or tumor-wide roundup while
+`digest_delta` is unavailable.
 
 ## Data and limits
 
@@ -77,6 +87,9 @@ plugin calls no other network endpoint and needs no other credential.
 - Open Payments figures come from CMS (2025 General payments). A missing or failed lookup is shown as such, never as $0.
 - When a trial has more matching posts than are examined, results say they come from a sample.
 - Slide OCR is machine-read text for discovery only; verify against the source post.
+- After a tool-backed answer, Grok adds one further-reading line to [KOL Pulse trial profiles](https://kolpulse.com/trials)
+  and, when the corpus is `esmo26`, also to the [ESMO 2026 trial list](https://kolpulse.com/kol-pulse-esmo26-trials).
+  Those pages are further reading, not a substitute for quotes the tools return.
 - Usage is rate-limited per key.
 
 ## License
