@@ -56,6 +56,16 @@ Until `KOLPULSE_DISCOVERY_KEY` is set in Grok's environment, Grok shows the plug
 failing (for example in `grok mcp doctor`). Start Grok with `./scripts/kolpulse-key.sh run`, or set up your shell
 profile as above, and it connects.
 
+## Network endpoint and credentials
+
+The plugin's MCP server calls one endpoint, the KOL Pulse Discovery API:
+
+- `https://rujebmedz7.execute-api.us-east-1.amazonaws.com/prod/mcp`, authenticated with the `x-api-key` header, whose
+  value comes from the environment variable `${KOLPULSE_DISCOVERY_KEY}`.
+
+`./scripts/kolpulse-key.sh check` sends one `tools/list` request to the same endpoint to confirm your key works. The
+plugin calls no other network endpoint and needs no other credential.
+
 ## Example prompts
 
 - "Which KOL Pulse conferences cover lung cancer?"
