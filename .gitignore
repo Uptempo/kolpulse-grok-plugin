@@ -1,0 +1,6 @@
+# Never commit a key. The plugin reads KOLPULSE_DISCOVERY_KEY from your environment only.
+.env
+.env.*
+*.key
+*.pem
+.DS_Store

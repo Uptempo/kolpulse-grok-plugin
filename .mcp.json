@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "kolpulse-discovery": {
+      "type": "http",
+      "url": "https://rujebmedz7.execute-api.us-east-1.amazonaws.com/prod/mcp",
+      "headers": {
+        "x-api-key": "${KOLPULSE_DISCOVERY_KEY}"
+      }
+    }
+  }
+}

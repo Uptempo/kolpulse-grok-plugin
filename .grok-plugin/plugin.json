@@ -1,0 +1,18 @@
+{
+  "name": "kolpulse-discovery",
+  "version": "0.1.0",
+  "description": "KOL Pulse Discovery: what oncologists said about a clinical trial at one conference, with whole quotes, x.com source links and Open Payments context.",
+  "author": {
+    "name": "Uptempo",
+    "url": "https://github.com/Uptempo"
+  },
+  "homepage": "https://kolpulse.com",
+  "repository": "https://github.com/Uptempo/kolpulse-grok-plugin",
+  "license": "MIT",
+  "keywords": [
+    "kolpulse",
+    "kol pulse",
+    "kolpulse.com",
+    "kolpulse discovery"
+  ]
+}
